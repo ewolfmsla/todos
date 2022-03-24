@@ -21,7 +21,7 @@ defmodule Pg.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:dialyxir, "~> 1.1"},
+      {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
       {:credo, "~> 1.6"}
     ]
   end

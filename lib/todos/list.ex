@@ -26,7 +26,8 @@ defmodule ToDos.List do
         %ToDoList{}
 
       _ ->
-        Enum.reduce(todo_items, ToDoList.new(), fn item, acc -> ToDoList.add_new(acc, item) end)
+        # Enum.reduce(todo_items, ToDoList.new(), fn item, acc -> ToDoList.add_new(acc, item) end)
+        Enum.reduce(todo_items, ToDoList.new(), &add_new(&2, &1))
     end
   end
 
