@@ -19,10 +19,18 @@ defmodule ToDos.List do
 
   @type t :: %ToDoList{auto_id: integer(), entries: %{integer() => ToDoItem.todo_item()}}
 
-  @spec new() :: todo_list()
-  def new(), do: %ToDoList{}
+  @spec new(list(ToDoItem.todo_item())) :: todo_list()
+  def new(todo_items \\ []) do
+    case todo_items do
+      [] ->
+        %ToDoList{}
 
-  @spec add_new(map(), ToDoItem.todo_item()) :: todo_list()
+      _ ->
+        Enum.reduce(todo_items, ToDoList.new(), fn item, acc -> ToDoList.add_new(acc, item) end)
+    end
+  end
+
+  @spec add_new(todo_list(), ToDoItem.todo_item()) :: todo_list()
   def add_new(%ToDoList{} = todos, %ToDoItem{} = entry) do
     entry = Map.put(entry, :id, todos.auto_id)
     new_entries = Map.put(todos.entries, todos.auto_id, entry)

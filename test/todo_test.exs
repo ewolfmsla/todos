@@ -15,7 +15,27 @@ defmodule ToDoTest do
   end
 
   test "new/0" do
-    assert %ToDoList{} == ToDoList.new()
+    new_todo_list = ToDoList.new()
+    assert %ToDoList{} == new_todo_list
+    assert 0 == length(Map.keys(new_todo_list.entries))
+  end
+
+  test "new/1" do
+    todo_items = [
+      %ToDoItem{date: ~D[2022-03-23], title: "wake up"},
+      %ToDoItem{date: ~D[2022-03-23], title: "go to work"},
+      %ToDoItem{date: ~D[2022-03-23], title: "eat dinner"}
+    ]
+
+    todos = ToDoList.new(todo_items)
+
+    assert 3 == length(Map.keys(todos.entries))
+    assert 4 == todos.auto_id
+
+    todos = ToDoList.add_new(todos, %ToDoItem{date: ~D[2022-03-23], title: "go to bed"})
+
+    assert 5 == todos.auto_id
+    assert 4 == length(Map.keys(todos.entries))
   end
 
   test "add_new/3", %{todos: todos} do
