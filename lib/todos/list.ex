@@ -68,4 +68,16 @@ defmodule ToDos.List do
   end
 
   def update(_, _, _), do: :error
+
+  @spec remove(todo_list(), integer()) :: todo_list()
+  def remove(%ToDoList{} = todos, id) when is_integer(id) do
+    updated_entries =
+      todos.entries
+      |> Stream.filter(&(elem(&1, 0) != id))
+      |> Enum.reduce(%{}, fn {key, val}, acc -> Map.put(acc, key, val) end)
+
+    %ToDoList{todos | entries: updated_entries}
+  end
+
+  def remove(%ToDoList{} = todos, _), do: todos
 end

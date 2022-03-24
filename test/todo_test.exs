@@ -22,6 +22,18 @@ defmodule ToDoTest do
     assert 3 == length(Map.keys(todos.entries))
   end
 
+  test "remove/2 removes one todo item", %{todos: todos} do
+    assert 3 == length(Map.keys(todos.entries))
+    modified_todos = ToDoList.remove(todos, 2)
+    assert 2 == length(Map.keys(modified_todos.entries))
+  end
+
+  test "remove/2 returns all todos when provided unknown id", %{todos: todos} do
+    assert 3 == length(Map.keys(todos.entries))
+    modified_todos = ToDoList.remove(todos, 5)
+    assert 3 == length(Map.keys(modified_todos.entries))
+  end
+
   test "get_todo", %{todos: todos} do
     todos = ToDoList.get_todo(todos, 2)
 
