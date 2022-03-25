@@ -78,6 +78,39 @@ defmodule ToDos.List do
 
   def update(_, _, _), do: :error
 
+  @doc """
+  loads a csv file in the format
+
+  mm/dd/yyyy, todo item 1\n
+  mm/dd/yyyy, todo item 2
+
+  and returns a %ToDo.List{} struct
+  """
+  @spec load(String.t()) :: todo_list() | :error
+  def load(csv) do
+    try do
+      File.stream!(csv)
+      |> Stream.map(&String.replace(&1, "\n", ""))
+      |> Stream.map(&String.split(&1, ",", parts: 2, trim: true))
+      |> Stream.map(&format_date_and_do_trim/1)
+      |> Enum.map(&to_todo_item/1)
+      |> ToDoList.new()
+    rescue
+      FunctionClauseError -> :error
+    end
+  end
+
+  defp to_todo_item(line) when is_list(line),
+    do: %ToDoItem{date: Enum.at(line, 0), title: Enum.at(line, 1)}
+
+  defp format_date_and_do_trim(list) do
+    fe = Enum.at(list, 0) |> String.split("/")
+    fe = "#{Enum.at(fe, 2)}-#{Enum.at(fe, 0)}-#{Enum.at(fe, 1)}"
+    se = String.trim(Enum.at(list, 1))
+
+    [fe, se]
+  end
+
   @spec remove(todo_list(), integer()) :: todo_list()
   def remove(%ToDoList{} = todos, id) when is_integer(id) do
     updated_entries =
