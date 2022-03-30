@@ -1,4 +1,4 @@
-defmodule ToDoServer do
+defmodule SpawnServer do
   @moduledoc """
   genserver implementation
   """
