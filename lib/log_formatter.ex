@@ -1,7 +1,8 @@
 defmodule LogFormatter do
   @moduledoc """
-  simple log formatter
+  Custom log formatter
   """
+
   @protected [:request_ip]
 
   # https://timber.io/blog/the-ultimate-guide-to-logging-in-elixir/

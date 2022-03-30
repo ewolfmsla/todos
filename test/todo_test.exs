@@ -4,6 +4,8 @@ defmodule ToDoTest do
   alias ToDos.Item, as: ToDoItem
   alias ToDos.List, as: ToDoList
 
+  @csv_data "./data/todos.csv"
+
   setup_all do
     todos =
       ToDoList.new()
@@ -14,9 +16,17 @@ defmodule ToDoTest do
     {:ok, todos: todos}
   end
 
+  describe "load/1" do
+    test "loads csv file" do
+      todos = ToDoList.load(@csv_data)
+      assert 7 == length(Map.keys(todos.entries))
+    end
+  end
+
   test "new/0" do
     new_todo_list = ToDoList.new()
     assert %ToDoList{} == new_todo_list
+
     assert Enum.empty?(new_todo_list.entries)
   end
 
