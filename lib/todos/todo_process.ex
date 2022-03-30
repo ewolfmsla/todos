@@ -21,12 +21,23 @@ defmodule ToDoProcess do
     call(todo_server, {:remove, id})
   end
 
+  def get_entry(todo_server, id) do
+    call(todo_server, {:get_entry, id})
+  end
+
   def entries(todo_server, date) do
     call(todo_server, {:entries, date})
   end
 
   def handle_call({:entries, date}, state) do
     {ToDoList.entries(state, date), state}
+  end
+
+  def handle_call({:get_entry, id}, state) do
+    case ToDoList.get_todo(state, id) do
+      nil -> {:none, state}
+      entry -> {entry, state}
+    end
   end
 
   def handle_call({:remove, id}, state) do

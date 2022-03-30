@@ -39,7 +39,7 @@ defmodule ToDos.List do
     %ToDoList{auto_id: todos.auto_id + 1, entries: new_entries}
   end
 
-  @spec get_todo(todo_list(), integer()) :: ToDoItem.todo_item()
+  @spec get_todo(todo_list(), integer()) :: ToDoItem.todo_item() | nil
   def get_todo(todos, id) when is_integer(id) do
     Map.get(todos.entries, id, nil)
   end

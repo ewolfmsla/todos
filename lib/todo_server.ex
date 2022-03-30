@@ -1,4 +1,7 @@
 defmodule ToDoServer do
+  @moduledoc """
+  to do server
+  """
   use GenServer
 
   def start_link(opts) do
@@ -23,7 +26,6 @@ defmodule ToDoServer do
 
   @impl true
   def init(list) do
-    IO.inspect(list)
     {:ok, list}
   end
 

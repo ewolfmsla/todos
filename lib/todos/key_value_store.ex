@@ -1,5 +1,4 @@
 defmodule KeyValueStore do
-
   @moduledoc """
   key, value store
   """

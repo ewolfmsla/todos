@@ -1,4 +1,7 @@
 defmodule ToDos.Application do
+  @moduledoc """
+  Application file
+  """
   use Application
 
   def start(_type, args) do

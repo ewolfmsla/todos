@@ -1,6 +1,6 @@
 defmodule ToDoServerTest do
   @moduledoc """
-  ToDoServer test
+  To Do Server test
   """
 
   use ExUnit.Case, async: true
