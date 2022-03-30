@@ -17,7 +17,7 @@ defmodule ToDoTest do
   test "new/0" do
     new_todo_list = ToDoList.new()
     assert %ToDoList{} == new_todo_list
-    assert 0 == length(Map.keys(new_todo_list.entries))
+    assert Enum.empty?(new_todo_list.entries)
   end
 
   test "new/1" do

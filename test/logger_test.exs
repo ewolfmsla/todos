@@ -14,7 +14,5 @@ defmodule LoggerTest do
     assert result == 7
     assert log =~ "request_ip=(192.***.*.**)"
     assert log =~ "foo=(bar)"
-
-    IO.inspect(log)
   end
 end
